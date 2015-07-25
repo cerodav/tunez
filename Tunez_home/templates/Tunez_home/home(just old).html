@@ -1,0 +1,555 @@
+<html>
+<head>
+	<title>Tunez:Homepage</title>
+	{% load static %}
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style type="text/css">
+
+		@font-face 
+		{
+ 	   		font-family:RobotoMed ;
+    		src: url({% static 'fonts/Roboto/Roboto-Medium.ttf' %});
+		}
+
+		@font-face 
+		{
+ 	   		font-family:RobotoBlack ;
+    		src: url({% static 'fonts/Roboto/Roboto-Black.ttf' %});
+		}
+
+		@font-face 
+		{
+ 	   		font-family:RobotoItalic ;
+    		src: url({% static 'fonts/Roboto/Roboto-Italic.ttf' %});
+		}
+
+		body
+		{	
+			background-color: #FFF;			
+		}
+
+		/* Scroll Bar */
+		::-webkit-scrollbar 
+		{
+    		width: 0.5vw;
+		}
+ 
+		/* Track */
+		::-webkit-scrollbar-track 
+		{
+			background: rgba(211,211,211,1); 
+    		-webkit-border-radius: 10px;
+    		border-radius: 0px;
+		}
+ 
+		/* Handle */
+		::-webkit-scrollbar-thumb 
+		{
+    		-webkit-border-radius: 10px;
+    		border-radius: 0px;
+    		background: rgba(105,105,105,1); 
+    		
+		}
+
+		::-webkit-scrollbar-thumb:window-inactive 
+		{
+			background: rgba(211,211,211,0.4); 
+		}
+
+		
+		/*Rectangle result boxes*/
+		.box1
+		{
+			width:50vw;
+			height: 2vw;
+			background-color:#a8a8a8;
+			color: #0C3C26;
+			border-style:solid;
+			border-color:#a8a8a8;
+			font-family: editundo;
+			padding-top:1vw;
+			padding-left:1vw;
+			padding-right:1vw;
+			padding-bottom:1vw;
+			word-wrap:break-word;
+			float: left;
+			overflow-y:scroll ;
+			font-family: RobotoMed;
+			
+		}
+
+		.box2
+		{
+			float: left;
+			width:5vw;
+			height: 2vw;
+			background-color:#939393;
+			color: #0C3C26;
+			border-style:solid;
+			border-color:#939393;
+			font-family: editundo;
+			padding-top:1vw;
+			padding-left:1vw;
+			padding-right:1vw;
+			padding-bottom:1vw;
+			word-wrap:break-word;
+			font-family: RobotoMed;
+		}
+
+		.box3
+		{
+			float: left;
+			width:7vw;
+			height: 2vw;
+			background-color:#7e7e7e;
+			color: #0C3C26;
+			border-style:solid;
+			border-color:#7e7e7e;
+			font-family: editundo;
+			padding-top:1vw;
+			padding-left:1vw;
+			padding-right:1vw;
+			padding-bottom:1vw;
+			word-wrap:break-word;
+			font-family: RobotoMed;
+		}
+
+		.box4
+		{
+			float: left;
+			width:5vw;
+			height: 2vw;
+			background-color:#696969;
+			color: #0C3C26;
+			border-style:solid;
+			border-color:#696969;
+			font-family: editundo;
+			padding-top:1vw;
+			padding-left:1vw;
+			padding-right:1vw;
+			padding-bottom:1vw;
+			word-wrap:break-word;
+			font-family: RobotoMed;
+		}
+
+		.result
+		{
+			margin-top: 1vw;
+			margin-bottom: 1vw;
+			height: 4vw;
+			width: 80vw;
+		}
+
+		/*The whole 'Tunez'banner plus the search option*/
+
+		#search
+		{
+			height:3vw;
+			padding-top:1vw;
+			padding-left:1vw;
+			padding-bottom:1vw;
+			padding-right:1vw;
+		}
+
+		#banner
+		{
+			height: 3vw;
+			width: 8vw;
+			text-align: center;
+			color: #FFF;
+			border:solid;
+			border-width: thick;
+			float: left;
+			margin: none;
+			padding-bottom: 0.5vw;
+			padding-top: 0.5vw;
+			padding-left: 0.5vw;
+			padding-right: 0.5vw;
+			font-family: RobotoBlack;
+			border-color: #2c2c2c;
+			background-color: #2c2c2c;
+		}
+
+		#error_message
+		{
+			height: 3vw;
+			text-align: center;
+			color: #FFF;
+			border:solid;
+			border-width: thick;
+			float: left;
+			margin: none;
+			padding-bottom: 0.5vw;
+			padding-top: 0.5vw;
+			padding-left: 0.5vw;
+			padding-right: 0.5vw;
+			font-family:RobotoItalic ;
+			border-color: #4c0000;
+			background-color: #4c0000;
+		}
+
+		#searchbar
+		{
+			height: 100%;
+			width: 25vw;
+			color: #FFF;
+			margin-bottom: none;
+			float: left;
+		}
+
+		#searchinput
+		{
+			width: 76%;
+			border-width: thick;
+			border-color: #2c2c2c;
+			height: 3vw;
+			padding-top: 0.5vw;
+			padding-bottom: 0.5vw;
+			padding-left: 0.5vw;
+			padding-right: 0.5vw;
+			border-style: solid;
+			margin: none;
+			float: left;
+			font-family: editundo;
+		}
+
+		#submitbtn
+		{
+			width: 22%;
+			height: 3vw;
+			padding-top: 0.5vw;
+			padding-bottom: 0.5vw;
+			padding-left: 0.5vw;
+			padding-right: 0.5vw;
+			border-width: thick;
+			border-style: solid;
+			border-color: #2c2c2c;
+			background-color: #2c2c2c;
+			font-family: RobotoMed;
+			margin: none;
+			float: left;
+			color: #FFF;
+			cursor: pointer;
+
+		}
+
+		#container
+		{
+			float: left;
+			padding-top:1vw;
+			padding-left:1vw;
+			padding-bottom:1vw;
+			padding-right:1vw;
+		}
+
+		.nodecor
+		{
+			text-decoration: none;
+		}
+
+		.options
+		{
+			width: 650px;
+			height: 100px;
+			margin-left: 13px;
+		}
+
+		.options .optionscat
+		{
+			width: 200px;
+			height: 100px;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			padding-right: 5px;
+			padding-left: 5px;
+			background-color: #2c2c2c;
+			font: 85% RobotoBlack;
+			color: #FFF;
+			text-align: center;
+			float: left;
+		}
+
+		.optionscat a:hover
+		{
+			color: #25DF84;
+			cursor: pointer;
+		}
+
+		.resetbtn
+		{
+			width: 4vw;
+			height: 1.5vw;
+			float: left;
+			background-color: #2c2c2c;
+			color: #FFF;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			padding-right: 5px;
+			padding-left: 5px;
+			margin-left: 1vw;
+			font: 85% RobotoBlack;
+			text-align: center;
+		}
+
+		.resetbtn:hover
+		{
+			color: #25DF84;
+			cursor: pointer;
+		}
+
+
+	</style>
+</head>
+<body>
+	<div id="search">	
+		<input type="button" id="banner" value="Tunez" disabled />
+		<form action="/home/search/" method="post" id="searchbar">
+		{% csrf_token %}
+		<input type="text" name="query" id="searchinput" />
+		<input type="submit" value="Search" id="submitbtn" />
+		</form>
+
+		{% if error_message %}
+		<input type="button" id="error_message" value="{{error_message}}" disabled />
+		{% endif %}
+
+		{% if successreport %}
+		<input type="button" id="error_message" value="{{successreport}}" disabled />
+		{% endif %}
+
+	</div>
+		<div class="options">
+			<div class="optionscat">
+			<p>Quality</p><br>
+			<p><a id="320">320 kbps</a> <a id="256">256 kbps</a> <a id="256less">&#60;256 kbps</a></p>
+			</div>
+			<div class="optionscat">
+			<p>Duration</p><br>
+			<p><a id="3min">>3:00</a> <a id="2min">>2:00</a> <a id="1min">>1:00</a></p>
+			</div>
+			<div class="optionscat">
+			<p>File Size</p><br>
+			<p><a id="5mb">>5 mb</a> <a id="3mb">>3 mb</a> <a id="1mb">>1 mb</a></p>
+			</div>
+		</div>
+		<div class="resetbtn">Reset</div>
+		<br>
+		
+	<br>
+	<div id="container">
+		{% if search_tag_term %}
+		<div class="result"><div class="box1" style=" font-family:RobotoItalic; height:1vw; background-color:#2c2c2c; border-color:#2c2c2c; color:#FFF">Result for "{{search_tag_term}}"</div></div>
+		{% endif %}
+		{% if results %}
+    	{% for res in results %}
+        	<div class="result">
+        	<form action="/home/download/" method="post">
+        	{% csrf_token %}
+        		<a class="nodecor" onclick="javascript:this.parentNode.submit();"><div class="box1">{{res.title}}</div></a>
+        		<input type="hidden" name="url" value="{{res.url}}">
+        		<input type="hidden" name="title" value="{{res.title}}">
+        		<div class="box2">{{res.duration}}</div>
+        		<div class="box3">{{res.quality}} kbps</div>
+        		<div class="box4">{{res.size}}</div>
+        	</form>
+        	</div>
+    	{% endfor %}
+		{% endif %}
+	</div>
+
+
+</body>
+<script type="text/javascript">
+	var raw_set=document.getElementsByClassName("result");
+	var raw_set_copy={};var length=raw_set.length;
+	for(var i=0;i<raw_set.length;i=i+1)
+	{	
+		raw_set_copy[i]=raw_set[i].cloneNode(true);
+	}
+	// Classify based on quality 320kbps, 256kbps and finally <256kbps
+
+	window.addEventListener("click",function(e){
+		var ele=document.elementFromPoint(e.clientX,e.clientY);
+
+		if(ele.id.localeCompare("320")==0)
+		{
+			ele.style.color="#25DF84";
+			quality(3);
+		}	
+		if(ele.id.localeCompare("256")==0)
+		{
+			ele.style.color="#25DF84";
+			quality(2);
+		}	
+		if(ele.id.localeCompare("256less")==0)
+		{
+			ele.style.color="#25DF84";
+			quality(2);
+		}	
+
+		if(ele.id.localeCompare("3min")==0)
+		{
+			ele.style.color="#25DF84";
+			duration(3);
+		}	
+		if(ele.id.localeCompare("2min")==0)
+		{
+			ele.style.color="#25DF84";
+			duration(2);
+		}	
+		if(ele.id.localeCompare("1min")==0)
+		{
+			ele.style.color="#25DF84";
+			duration(1);
+		}	
+
+		if(ele.id.localeCompare("5mb")==0)
+		{
+			ele.style.color="#25DF84";
+			filesize(3);
+		}	
+		if(ele.id.localeCompare("3mb")==0)
+		{
+			ele.style.color="#25DF84";
+			filesize(2);
+		}	
+		if(ele.id.localeCompare("1mb")==0)
+		{
+			ele.style.color="#25DF84";
+			filesize(1);
+		}	
+
+		if(ele.className.localeCompare("resetbtn")==0)
+		{
+			resetlist();
+		}	
+	});
+
+	function duration(x)
+	{
+		for(var i=0;i<raw_set.length;i=i+1)
+		{
+			var innerHTMLd=raw_set[i].getElementsByClassName("box2")[0].innerHTML;
+			patt=/[0-9]*:/g;
+			patt.compile(patt);
+			var start=patt.exec(innerHTMLd);
+			stringd = start[0].replace(/\D/g,'');
+			intd = Number(stringd);
+			
+			
+				if(x==3)
+					var tag=3;
+				if(x==2)
+					var tag=2;
+				if(x==1)
+					var tag=1;
+				if(intd<tag)
+				{
+					var parent=raw_set[i].parentNode;
+					parent.removeChild(raw_set[i]);
+					i=0;
+				}
+			
+			
+		}
+	}
+
+	function filesize(x)
+	{
+		for(var i=0;i<raw_set.length;i=i+1)
+		{
+			var innerHTMLf=raw_set[i].getElementsByClassName("box4")[0].innerHTML;
+			patt=/[0-9]*./g;
+			patt.compile(patt);
+			var start=patt.exec(innerHTMLf);
+			stringf = start[0].replace(/\D/g,'');
+			intf = Number(stringf);
+			
+			
+				if(x==3)
+					var tag=5;
+				if(x==2)
+					var tag=3;
+				if(x==1)
+					var tag=1;
+				if(intf<tag)
+				{
+					var parent=raw_set[i].parentNode;
+					parent.removeChild(raw_set[i]);
+					i=0;
+				}
+			
+			
+		}	
+	}
+
+	function quality(x)
+	{
+		if(x==3)
+			var tag=320;
+		if(x==2)
+			var tag=256;
+		
+		for(var i=0;i<raw_set.length;i=i+1)
+		{
+			var innerHTMLq=raw_set[i].getElementsByClassName("box3")[0].innerHTML;
+			stringq = innerHTMLq.replace(/\D/g,'');
+			intq = Number(stringq);
+			
+			if((x==3)||(x==2))
+			{
+				if(x==3)
+					var tag=320;
+				if(x==2)
+					var tag=256;
+				if(intq<tag)
+				{
+					var parent=raw_set[i].parentNode;
+					parent.removeChild(raw_set[i]);
+					i=0;
+				}
+			}
+			else
+			{
+				if(intq>256)
+				{
+					var parent=raw_set[i].parentNode;
+					parent.removeChild(raw_set[i]);
+					i=0;
+				}
+			}
+		}
+	}
+
+	function resetlist()
+	{
+		// Removing everything
+		for(var i=0;i<raw_set.length;i=i+1)
+		{
+			var parent=raw_set[i].parentNode;
+			parent.removeChild(raw_set[i]);
+			i=0;
+		}
+
+		// Appending everything back
+		for(var i=0;i<length;i=i+1)
+		{
+			var parent=document.getElementById("container");
+			parent.appendChild(raw_set_copy[i]);
+		}
+
+		document.getElementById("5mb").style.color="#FFF";
+		document.getElementById("3mb").style.color="#FFF";
+		document.getElementById("2mb").style.color="#FFF";
+		document.getElementById("3min").style.color="#FFF";
+		document.getElementById("2min").style.color="#FFF";
+		document.getElementById("1min").style.color="#FFF";
+		document.getElementById("320").style.color="#FFF";
+		document.getElementById("256").style.color="#FFF";
+		document.getElementById("256less").style.color="#FFF";
+	}
+
+</script>
+
+
+</html>

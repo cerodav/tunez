@@ -1,0 +1,47 @@
+<html>
+<head>
+	<title></title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+  	<script type="text/javascript" src="{% static 'js/modernizr-1.5.min.js'%}"></script>
+</head>
+<body>
+	<div id="main">
+		<div id="searchbar">
+			<form action="/home/search/" method="post">
+			{% csrf_token %}
+				<input type="button" value="TUNEZ" disabled/>
+				<input type="text" name="query" />
+				<input type="submit" value="SEARCH" />
+			</form>
+		</div>
+
+		{% if error_message %}
+		<div id="errormsg">
+		{{error_message}}
+		</div>
+		{% endif %}
+		
+		{% if audiourl %}
+		<a class="nodecor" href="{{audiourl}}"><div class="downloadbtn">
+			<div class="title">{{audiotitle}}</div>
+			<div class="specs">{{audiotitle}}</div>
+			<div class="specs">{{audiotitle}}</div>
+			<div class="specs">{{audiotitle}}</div>	
+		</div></a>
+		<br>
+		{% endif %}
+		{% if albumart %}
+		<p>Right-click and select 'Save As' to save the preferred album art to your PC :</p>
+		<div id="artlist">
+    		{% for res in albumart %}
+        		<div class="resultart">
+        			<img src='{{res}}' class="picbox"></div>
+        		</div>
+    		{% endfor %}
+		</div>
+		{% endif %}
+	</div>
+</body>
+
+</html>

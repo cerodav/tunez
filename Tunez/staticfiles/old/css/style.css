@@ -1,0 +1,33 @@
+@font-face { 
+  font-family: RobotoMed; 
+    src: url('../fonts/Roboto/Roboto-Medium.ttf'); 
+} 
+
+@font-face { 
+  font-family: RobotoBoldCond; 
+    src: url('../fonts/Roboto/Roboto-BoldCondensed.ttf'); 
+} 
+
+@font-face { 
+  font-family: RobotoBlack; 
+    src: url('../fonts/Roboto/Roboto-Black.ttf'); 
+} 
+
+@font-face { 
+  font-family: RobotoItalic; 
+    src: url('../fonts/Roboto/Roboto-Italic.ttf'); 
+}
+
+html
+{ height: 100%;}
+
+*
+{ margin: 0;
+  padding: 0;}
+
+body
+{ font: normal 80% 'RobotoMed';
+  color:#25DF84;
+  background: transparent url(../images/background.jpg) repeat;}
+
+

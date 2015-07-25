@@ -1,0 +1,324 @@
+<html>
+<head>
+	<title></title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+  	<script type="text/javascript" src="{% static 'js/modernizr-1.5.min.js'%}"></script>
+</head>
+<body>
+	<div id="main">
+		<div id="searchbar">
+			<form action="/home/search/" method="post">
+			{% csrf_token %}
+				<input type="button" value="TUNEZ" disabled/>
+				<input type="text" name="query" />
+				<input type="submit" value="SEARCH" />
+			</form>
+		</div>
+
+		{% if error_message %}
+		<div id="errormsg">
+		{{error_message}}
+		</div>
+		{% endif %}
+
+		{% if results %}
+		<nav>
+		<div id="filters">
+			<input type="button" value="320kbps and more" id="q1" />
+			<input type="button" value="320 to 256kbps" id="q2"/>
+			<input type="button" value="less than 256kbps" id="q3"/>
+			<input type="button" value="3min and more" id="3m"/>
+			<input type="button" value="3 to 2min" id="2m"/>
+			<input type="button" value="less than 2min" id="1m"/>
+			<input type="button" value="more than 5mb" id="5mb"/>
+			<input type="button" value="5 to 3mb" id="3mb"/>
+			<input type="button" value="less than 3mb" id="2mb"/>
+			<input type="button" value="reset" id="resetbtn" />
+		</div>
+		</nav>
+		{% endif %}
+		{% if topsearch %}
+		<div id="msgtopsearch">Trending: </div>
+		{% endif %}
+		<br>
+		
+		<br>
+		<div id="list">
+		{% if search_tag_term %}
+		<div class="searchtag">Result for " {{search_tag_term}} "</div>
+		{% endif %}
+		{% if topsearch %}
+    	{% for res in topsearch %}
+			<div class="tsresult">
+			<form action="/home/search/" method="post">
+			{% csrf_token %}
+				<input type="submit" value="{{res}}" />
+				<input type="hidden" name="query" value="{{res}}" />
+        	</form>
+			</div>
+		{% endfor %}
+		{% endif %}
+		{% if results %}
+    	{% for res in results %}
+			<div class="result">
+			<form action="/home/download/" method="post">
+			{% csrf_token %}
+				<a class="nodecor" onclick="javascript:this.parentNode.submit();"><div class="title">{{res.title}}</div></a>
+				<div class="specs">{{res.quality}}kbps</div>
+				<div class="specs">{{res.duration}}</div>
+				<div class="specs">{{res.size}}</div>
+				<input type="hidden" name="url" value="{{res.url}}">
+        		<input type="hidden" name="title" value="{{res.title}}">
+        		<input type="hidden" name="qlty" value="{{res.quality}}">
+        		<input type="hidden" name="dura" value="{{res.duration}}">
+        		<input type="hidden" name="fsize" value="{{res.size}}">
+        	</form>
+			</div>
+		{% endfor %}
+		{% endif %}
+		</div>
+	</div>
+</body>
+
+<script type="text/javascript">
+	var raw_set=document.getElementsByClassName("result");
+	var raw_set_copy={};var length=raw_set.length;
+	for(var i=0;i<raw_set.length;i=i+1)
+	{	
+		raw_set_copy[i]=raw_set[i].cloneNode(true);
+	}
+	// Classify based on quality 320kbps, 256kbps and finally <256kbps
+
+	window.addEventListener("click",function(e){
+		var ele=document.elementFromPoint(e.clientX,e.clientY);
+
+		if(ele.id.localeCompare("q1")==0)
+		{
+			ele.style.backgroundColor="#cc5200";
+			quality(3);
+		}	
+		if(ele.id.localeCompare("q2")==0)
+		{
+			ele.style.backgroundColor="#cc5200";
+			quality(2);
+		}	
+		if(ele.id.localeCompare("q3")==0)
+		{
+			ele.style.backgroundColor="#cc5200";
+			quality(1);
+		}	
+
+		if(ele.id.localeCompare("3m")==0)
+		{
+			ele.style.backgroundColor="#cc5200";
+			duration(3);
+		}	
+		if(ele.id.localeCompare("2m")==0)
+		{
+			ele.style.backgroundColor="#cc5200";
+			duration(2);
+		}	
+		if(ele.id.localeCompare("1m")==0)
+		{
+			ele.style.backgroundColor="#cc5200";
+			duration(1);
+		}	
+
+		if(ele.id.localeCompare("5mb")==0)
+		{
+			ele.style.backgroundColor="#cc5200";
+			filesize(3);
+		}	
+		if(ele.id.localeCompare("3mb")==0)
+		{
+			ele.style.backgroundColor="#cc5200";
+			filesize(2);
+		}	
+		if(ele.id.localeCompare("1mb")==0)
+		{
+			ele.style.backgroundColor="#cc5200";
+			filesize(1);
+		}	
+
+		if(ele.className.localeCompare("resetbtn")==0)
+		{
+			resetlist();
+		}	
+	});
+
+	function duration(x)
+	{
+		for(var i=0;i<raw_set.length;i=i+1)
+		{
+			var innerHTMLd=raw_set[i].getElementsByClassName("specs")[1].innerHTML;
+			patt=/[0-9]*:/g;
+			patt.compile(patt);
+			var start=patt.exec(innerHTMLd);
+			stringd = start[0].replace(/\D/g,'');
+			intd = Number(stringd);
+			
+			
+				if(x==3)
+				{
+					var tag=3;
+
+					if(intd<tag)
+					{
+						var parent=raw_set[i].parentNode;
+						parent.removeChild(raw_set[i]);
+						i=0;
+					}
+				}
+
+				if(x==2)
+				{
+					if(intd<2 && intd>3)
+					{
+						var parent=raw_set[i].parentNode;
+						parent.removeChild(raw_set[i]);
+						i=0;
+					}	
+				}
+
+				if(x==1)
+				{
+					if(intd>=2)
+					{
+						var parent=raw_set[i].parentNode;
+						parent.removeChild(raw_set[i]);
+						i=0;
+					}	
+				}
+
+
+
+			
+			
+		}
+	}
+
+	function filesize(x)
+	{
+		for(var i=0;i<raw_set.length;i=i+1)
+		{
+			var innerHTMLf=raw_set[i].getElementsByClassName("specs")[2].innerHTML;
+			patt=/[0-9]*./g;
+			patt.compile(patt);
+			var start=patt.exec(innerHTMLf);
+			stringf = start[0].replace(/\D/g,'');
+			intf = Number(stringf);
+			
+			
+				
+				if(x==3)
+				{
+					if(intf<=5)
+					{
+						var parent=raw_set[i].parentNode;
+						parent.removeChild(raw_set[i]);
+						i=0;
+					}
+				}
+
+				if(x==2)
+				{
+					if(intf<3 && intf>5)
+					{
+						var parent=raw_set[i].parentNode;
+						parent.removeChild(raw_set[i]);
+						i=0;
+					}	
+				}
+
+				if(x==1)
+				{
+					if(intf>=3)
+					{
+						var parent=raw_set[i].parentNode;
+						parent.removeChild(raw_set[i]);
+						i=0;
+					}	
+				}
+			
+			
+		}	
+	}
+
+	function quality(x)
+	{
+		if(x==3)
+			var tag=320;
+		if(x==2)
+			var tag=256;
+		
+		for(var i=0;i<raw_set.length;i=i+1)
+		{
+			var innerHTMLq=raw_set[i].getElementsByClassName("specs")[0].innerHTML;
+			stringq = innerHTMLq.replace(/\D/g,'');
+			intq = Number(stringq);
+			
+			
+				if(x==3)
+				{
+
+					if(intq<320)
+					{
+						var parent=raw_set[i].parentNode;
+						parent.removeChild(raw_set[i]);
+						i=0;
+					}
+				}
+
+				if(x==2)
+				{
+					if(intq<256 && intq>320)
+					{
+						var parent=raw_set[i].parentNode;
+						parent.removeChild(raw_set[i]);
+						i=0;
+					}	
+				}
+
+				if(x==1)
+				{
+					if(intq>=256)
+					{
+						var parent=raw_set[i].parentNode;
+						parent.removeChild(raw_set[i]);
+						i=0;
+					}	
+				}
+		}
+	}
+
+	function resetlist()
+	{
+		// Removing everything
+		for(var i=0;i<raw_set.length;i=i+1)
+		{
+			var parent=raw_set[i].parentNode;
+			parent.removeChild(raw_set[i]);
+			i=0;
+		}
+
+		// Appending everything back
+		for(var i=0;i<length;i=i+1)
+		{
+			var parent=document.getElementById("list");
+			parent.appendChild(raw_set_copy[i]);
+		}
+
+		document.getElementById("5mb").style.backgroundColor="#FF6600";
+		document.getElementById("3mb").style.backgroundColor="#FF6600";
+		document.getElementById("2mb").style.backgroundColor="#FF6600";
+		document.getElementById("3m").style.backgroundColor="#FF6600";
+		document.getElementById("2m").style.backgroundColor="#FF6600";
+		document.getElementById("1m").style.backgroundColor="#FF6600";
+		document.getElementById("q1").style.backgroundColor="#FF6600";
+		document.getElementById("q2").style.backgroundColor="#FF6600";
+		document.getElementById("q3").style.backgroundColor="#FF6600";
+	}	
+</script>
+
+</html>

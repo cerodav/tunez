@@ -1,0 +1,10 @@
+{% if results %}
+    	{% for res in results %}
+        	<div class="result">
+        		<a class="nodecor" href="{{res.url}}"><div class="box1">{{res.title}}</div></a>
+        		<div class="box2">{{res.duration}}</div>
+        		<div class="box3">{{res.quality}} kbps</div>
+        		<div class="box4">{{res.size}}</div>
+        	</div>
+    	{% endfor %}
+		{% endif %}
